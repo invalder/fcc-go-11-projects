@@ -83,6 +83,7 @@ func updateMovie(w http.ResponseWriter, r *http.Request) {
 			// append all other except matched movie ID
 			var movie Movie
 			_ = json.NewDecoder(r.Body).Decode(&movie)
+			// item is like a blob, it doesn't update the database
 			movies[index].Modify(movie.Isbn, movie.Title, movie.Director.FirstName, movie.Director.LastName)
 			// item.Modify(movie.Isbn, movie.Title, movie.Director.FirstName, movie.Director.LastName)
 			movie.ID = item.ID
