@@ -3,12 +3,13 @@ package main
 import (
 	"log"
 	"net/http"
+
 	"github.com/gorilla/mux"
+	"github.com/invalder/fcc-go-11-projects/go-mysql-book-management/routes"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"github.com/invalder/go-bookstore/routes"
 )
 
-func main(){
+func main() {
 	r := mux.NewRouter()
 	routes.RegisterBookStoreRoutes(r)
 	http.Handle("/", r)

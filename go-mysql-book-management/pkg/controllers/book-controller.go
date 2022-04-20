@@ -6,8 +6,8 @@ import(
 	"github.com/gorilla/mux"
 	"net/http"
 	"strconv"
-	"github.com/invalder/go-bookstore/pkg/utils"
-	"github.com/invalder/go-bookstore/pkg/models"
+	"github.com/invalder/fcc-go-11-projects/go-mysql-book-management/pkg/utils"
+	"github.com/invalder/fcc-go-11-projects/go-mysql-book-management/pkg/models"
 )
 
 var NewBook models.Book
