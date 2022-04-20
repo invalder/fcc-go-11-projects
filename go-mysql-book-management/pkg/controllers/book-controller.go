@@ -1,18 +1,19 @@
 package controllers
 
-import(
-	"encode/json"
+import (
+	"encoding/json"
 	"fmt"
-	"github.com/gorilla/mux"
 	"net/http"
 	"strconv"
-	"github.com/invalder/fcc-go-11-projects/go-mysql-book-management/pkg/utils"
+
+	"github.com/gorilla/mux"
 	"github.com/invalder/fcc-go-11-projects/go-mysql-book-management/pkg/models"
+	"github.com/invalder/fcc-go-11-projects/go-mysql-book-management/pkg/utils"
 )
 
 var NewBook models.Book
 
-func GetBook(w http.ResponseWriter, r *http.Request){
+func GetBook(w http.ResponseWriter, r *http.Request) {
 	NewBook := models.GetAllBooks()
 	res, _ := json.Marshal(NewBook)
 	w.Header().Set("Content-Type", "pkglication/json")
@@ -20,7 +21,7 @@ func GetBook(w http.ResponseWriter, r *http.Request){
 	w.Write(res)
 }
 
-func GetBookById(w http.ResponseWriter, r *http.Request){
+func GetBookById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	bookId := vars["bookId"]
 	ID, err := strconv.ParseInt(bookId, 0, 0)
@@ -35,7 +36,7 @@ func GetBookById(w http.ResponseWriter, r *http.Request){
 	w.Write(res)
 }
 
-func CreateBook(w http.ResponseWriter, r *http.Request){
+func CreateBook(w http.ResponseWriter, r *http.Request) {
 	CreateBook := &models.Book{}
 	utils.ParseBody(r, CreateBook)
 	b := CreateBook.CreateBook()
@@ -45,7 +46,7 @@ func CreateBook(w http.ResponseWriter, r *http.Request){
 	w.Write(res)
 }
 
-func DeleteBook(w http.ResponseWriter, r *http.Request){
+func DeleteBook(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	bookId := vars["bookId"]
 	ID, err := strconv.ParseInt(bookId, 0, 0)
@@ -60,24 +61,24 @@ func DeleteBook(w http.ResponseWriter, r *http.Request){
 	w.Write(res)
 }
 
-func UpdateBook(w http.ResponseWriter, r *http.Request){
-	var UpdateBook := &models.Book{}
-	utils.Parse(r, updateBook)
+func UpdateBook(w http.ResponseWriter, r *http.Request) {
+	var updateBook = &models.Book{}
+	utils.ParseBody(r, updateBook)
 	vars := mux.Vars(r)
-	bookId : vars["bookId"]
+	bookId := vars["bookId"]
 	ID, err := strconv.ParseInt(bookId, 0, 0)
 	if err != nil {
 		fmt.Println("error while parsing")
 		fmt.Fprintf(w, "error while parsing\n")
 	}
 	bookDetails, db := models.GetBookById(ID)
-	if updateBook.Name != ""{
+	if updateBook.Name != "" {
 		bookDetails.Name = updateBook.Name
 	}
-	if updateBook.Author != ""{
+	if updateBook.Author != "" {
 		bookDetails.Author = updateBook.Author
 	}
-	if updateBook.Publication != ""{
+	if updateBook.Publication != "" {
 		bookDetails.Publication = updateBook.Publication
 	}
 }
